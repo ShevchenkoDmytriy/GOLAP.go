@@ -163,7 +163,7 @@ footer.top .socials>a {
 }
 
 .Nav {
-    width: 70%;
+    width: 80%;
     height: 3em;
     /* border: 2px solid red; */
     display: flex;
@@ -221,7 +221,7 @@ margin-right: 1.9em;
 
 .Logo input {
     width: 25em;
-    height: 1.7em;
+    height: 2em;
 }
 
 .LogoPhoto {
@@ -230,4 +230,138 @@ margin-right: 1.9em;
 .Logo h1{
     margin-left: 1em;
     margin-right: 1em;
+}
+.BodyPanel{
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    flex-wrap: nowrap;
+}
+
+/* ////////////////////// */
+.LeftPanel{
+width: 20%;
+display: flex;
+flex-direction: column;
+border-right: 1px solid;
+border-image: linear-gradient(to bottom, rgb(228, 228, 228), rgb(238, 238, 238));
+border-image-slice: 1;
+}
+.MainPanel{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+body {font-family: Verdana, sans-serif;}
+.mySlides {display: none;}
+img {vertical-align: middle;}
+.slideshow-container {
+  max-width: 80%;
+  position: relative;
+  margin: auto;
+  margin-top: 1em;
+}
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2em;
+}
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+.dot {
+  height: 15px;
+  width: 15px;
+  background-color: #bbb;
+  border-radius: 50%;
+
+  transition: background-color 0.6s ease;
+}
+.active {
+  background-color: #717171;
+}
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
+}
+.Buy{
+    margin-top: 1em;
+    border-top: 1px solid;
+border-image: linear-gradient(to right, rgb(228, 228, 228), rgb(224, 224, 224));
+border-image-slice: 1;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-around;
+}
+.Tovar{
+    margin-top: 0.5em;
+    min-width: 16.66%;
+    border-right: 1px solid rgb(228, 228, 228);
+    border-bottom: 1px solid rgb(228, 228, 228);
+    height: 12em;
+}
+.Products{
+    margin: 1em;
+    width: 100%;
+    display: flex;
+flex-wrap: wrap;
+}
+.Ram{
+    width: 70%;
+    height: 80%;
+    margin: 1em;
+text-align: left;
+padding: 0.5em;
+}
+.Ram img{
+    height: 50%;
+    width: 70%;
+}
+.Ram a{
+    color: black;
+    text-decoration: none;
+}
+.NameP{
+    font-size: 12px;
+    word-break: break-all;
+}
+.Ram a:hover{
+    text-decoration:underline;
+}
+.PriceP{
+    color: red;
+    font-size: 20px;
+}
+.Grivnya{
+    font-size: 16px;
+}
+.BlockP {
+    height: 15%;
+    display: flex;
+    align-items: center; 
+   margin: 0;
 }
