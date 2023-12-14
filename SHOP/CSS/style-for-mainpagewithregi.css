@@ -203,6 +203,10 @@ footer.top .socials>a {
 margin-left:2em;
 margin-right: 1.9em;
 }
+.Nav svg.bi-person-check {
+    width: 2.3em;
+height: 3em;
+    }
 
 .IconPanel {
     display: flex;
