@@ -103,7 +103,7 @@ footer {
         gap: 8px;
         padding: 5px 0;
         text-align: center;
-        margin-top: 100%;
+       margin-top: 20%;
     }
 
     footer.top .links {
@@ -232,12 +232,73 @@ footer.top .socials {
 .Registr{
     width: 30%;
     height: 20em;
-    border: 1px solid red;
 
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 .Animation{
-
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
     width: 30%;
     height: 20em;
-    border: 1px solid red;
+
+}
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.loginForm button{
+    width: 30%;
+    
+}
+.InputBlock{
+width: 100%;
+display: flex;
+flex-direction: column;
+flex-wrap: wrap;
+}
+.InputBlock input{
+    height: 1.6em;
+    margin-bottom: 10%;
+}
+.BlockRegistr{
+    width: 70%;
+    height: 70%;
+
+}
+.ButtonRegistr{
+    width: 100%;
+    margin-top: 5%;
+    text-align: center;
+}
+.ButtonRegistr button{
+    background-color: #212529;
+    color: white;
+    width: 60%;
+    height:2em;
+}
+.loginForm label{
+    margin-bottom: 1%;
+}
+.BlockRegistr a{
+    text-decoration: none;
+    color: blue;
+}
+.LogIn{
+    margin-top: 10%;
+    text-align: right;
+}
+.BlockRegistr a:hover{
+    text-decoration: underline;
+
+}
+.Remember{
+    text-align: right;
 }

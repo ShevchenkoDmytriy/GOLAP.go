@@ -1,31 +1,28 @@
-{{define "Registrpage"}}
+{{define "Loginpage"}}
 {{template "header2"}}
 <section>
     <div class="BlockR">
         <div class="Registr">
             <div class="BlockRegistr">
-                <form class="loginForm" action="/SaveUser" method="post">
+                <form class="loginForm">
                     <div class="InputBlock">
                         <label for="email">Email:</label>
                         <input placeholder="Enter ..." type="email" id="email" name="email" required>
                         <label for="password">Password:</label>
                         <input placeholder="Enter ..." type="password" id="password" name="password" required>
                     </div>
-                    <label for="userType">User Type:</label>
-                    <div>
+                    <div class="Remember">
                         <label>
-                            <input type="radio" id="userRadio" name="userType" value="user"> User
-                        </label>
-                        <label>
-                            <input type="radio" id="solderRadio" name="userType" value="seller"> Seller
+                            <input type="checkbox" id="rememberMe" name="rememberMe"> Remember Me
                         </label>
                     </div>
+
                     <div class="ButtonRegistr">
-                        <button >Log up</button>
+                        <button type="button" onclick="">Log in</button>
                     </div>
                 </form>
                 <div class="LogIn">
-                    <a href="/Loginpage">log in</a>
+                    <a href="/Registration">log up</a>
                 </div>
             </div>
             
