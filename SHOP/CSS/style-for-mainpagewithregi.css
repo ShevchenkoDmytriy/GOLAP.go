@@ -319,14 +319,15 @@ border-image: linear-gradient(to right, rgb(228, 228, 228), rgb(224, 224, 224));
 border-image-slice: 1;
 display: flex;
 flex-wrap: wrap;
-justify-content: space-around;
+justify-content: space-between;
+min-height: 10%;
 }
 .Tovar{
     margin-top: 0.5em;
-    min-width: 16.5%;
+    width: 16.5%;
     border-right: 1px solid rgb(228, 228, 228);
     border-bottom: 1px solid rgb(228, 228, 228);
-    height: 12em;
+    height:14em;
 }
 .Products{
     margin: 1em;
