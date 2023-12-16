@@ -26,6 +26,7 @@ type Products struct {
 var posts = []Users{}
 var redirectURL string
 var products = []Products{}
+var about = Products{}
 
 func MainPage(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("View/Mainpage.html", "View/header.html", "View/footer.html")
@@ -122,7 +123,7 @@ func CheckUser(w http.ResponseWriter, r *http.Request) {
 
 		posts = append(posts, post)
 		if email == post.email && password == post.password {
-			redirectURL = fmt.Sprintf("/MainpageWithRegi/%d", post.id_user)
+			redirectURL = fmt.Sprintf("/%d", post.id_user)
 			http.Redirect(w, r, redirectURL, http.StatusSeeOther)
 		} else {
 			http.Redirect(w, r, "/Loginpage", http.StatusSeeOther)
@@ -135,6 +136,38 @@ func MainpageWithRegi(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 	}
 	t.ExecuteTemplate(w, "MainpageWithRegi", nil)
+}
+func About(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("View/About.html", "View/header.html", "View/footer.html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	vars := mux.Vars(r)
+	productName := vars["product_name"]
+
+	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/Shop.go")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer db.Close()
+
+	row := db.QueryRow("SELECT * FROM `Products` WHERE `product_name`=?", productName)
+
+	var about Products
+	err = row.Scan(&about.ProductId, &about.ProductName, &about.Price, &about.Description)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			http.NotFound(w, r)
+			return
+		}
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	t.ExecuteTemplate(w, "About", about)
 }
 
 // func AboutPost(w http.ResponseWriter, r *http.Request) {
@@ -177,7 +210,8 @@ func HandlePage() {
 	rtr.HandleFunc("/", MainPage).Methods("GET")
 	rtr.HandleFunc("/SaveUser", SaveUser).Methods("POST")
 	rtr.HandleFunc("/CheckUser", CheckUser).Methods("POST")
-	rtr.HandleFunc("/MainpageWithRegi/{Id:[0-9]+}", MainpageWithRegi).Methods("GET")
+	rtr.HandleFunc("/Products/{product_name}", About).Methods("GET")
+	// rtr.HandleFunc("/Products/{{.Id}}", About).Methods("GET")
 	// rtr.HandleFunc("/MainpageWithRegi/{Id:[0-9]+}", MainpageWithRegi).Methods("GET")
 	// rtr.HandleFunc("/create", create).Methods("GET")
 	// rtr.HandleFunc("/SaveArticle", SaveArticle).Methods("POST")

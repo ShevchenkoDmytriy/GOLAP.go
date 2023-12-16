@@ -365,3 +365,33 @@ padding: 0.5em;
     align-items: center; 
    margin: 0;
 }
+.AboutProducts{
+    width: 100%;
+    height: 100%;
+}
+.AboutDis{
+    margin-top: 4%;
+    width: 80%;
+    height: 100%;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    flex: row;
+}
+.AboutImg{
+    width: 50%;
+    height: 100%;
+    border: 1px solid WHITE;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+}
+.AboutName{
+    width: 50%;
+    height: 100%;
+    border: 1px solid white;
+}
+    .AboutDis img{
+    width: 20em;
+    height: 20em;
+    }
