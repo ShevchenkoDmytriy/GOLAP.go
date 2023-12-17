@@ -1,0 +1,41 @@
+{{define "Search"}}
+{{template "header"}}
+
+<section>
+    <div class="BodyPanel">
+        <div class="LeftPanel">
+
+        </div>
+        <div class="MainPanel">
+            <div class="Buy">
+                <div class="Products">
+                    {{range .}}
+                    <div class="Tovar">
+                        <div class="Ram">
+                            <a href="/Products/{{.ProductName}}">
+                                <img class="PhotoP" src="/Img/1-strawberry-png-images.png" alt="">
+                                <a href="/Products/{{.ProductName}}">
+                                    <p class="NameP">{{.ProductName}}</p>
+                                </a>
+                                <div class="BlockP">
+                                    <p class="PriceP">{{.Price}}
+                                    <p class="Grivnya">₴</p>
+                                    </p>
+
+                                </div>
+                                </p>
+                            </a>
+
+                        </div>
+
+                    </div>
+                    {{end}}
+                </div>
+                
+            </div>
+
+        </div>
+</section>
+
+{{template "footer"}}
+{{end}}

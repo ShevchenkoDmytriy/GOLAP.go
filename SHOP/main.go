@@ -169,6 +169,49 @@ func About(w http.ResponseWriter, r *http.Request) {
 
 	t.ExecuteTemplate(w, "About", about)
 }
+func SearchProducts(w http.ResponseWriter, r *http.Request) {
+	name := r.FormValue("productsName")
+	t, err := template.ParseFiles("View/Search.html", "View/header.html", "View/footer.html")
+	if name == "" {
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+
+	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/Shop.go")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer db.Close()
+
+	rows, err := db.Query("SELECT * FROM Products WHERE product_name=?", name)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer rows.Close()
+
+	var products []Products
+
+	for rows.Next() {
+		var product Products
+		err = rows.Scan(&product.ProductId, &product.ProductName, &product.Price, &product.Description)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		products = append(products, product)
+		t.ExecuteTemplate(w, "Search", products)
+	}
+}
+func SearchPage(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("View/Search.html", "View/header.html", "View/footer.html")
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+	}
+	t.ExecuteTemplate(w, "Search", nil)
+}
 
 // func AboutPost(w http.ResponseWriter, r *http.Request) {
 // 	t, err := template.ParseFiles("template/show.html", "template/header.html", "template/footer.html")
@@ -210,7 +253,11 @@ func HandlePage() {
 	rtr.HandleFunc("/", MainPage).Methods("GET")
 	rtr.HandleFunc("/SaveUser", SaveUser).Methods("POST")
 	rtr.HandleFunc("/CheckUser", CheckUser).Methods("POST")
+	rtr.HandleFunc("/{{.Id}}", MainpageWithRegi).Methods("GET")
 	rtr.HandleFunc("/Products/{product_name}", About).Methods("GET")
+	rtr.HandleFunc("/SearchPage", SearchProducts).Methods("POST")
+	rtr.HandleFunc("/Search", SearchPage).Methods("GET")
+
 	// rtr.HandleFunc("/Products/{{.Id}}", About).Methods("GET")
 	// rtr.HandleFunc("/MainpageWithRegi/{Id:[0-9]+}", MainpageWithRegi).Methods("GET")
 	// rtr.HandleFunc("/create", create).Methods("GET")
