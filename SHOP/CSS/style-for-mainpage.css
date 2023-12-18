@@ -200,8 +200,8 @@ footer.top .socials>a {
 }
 
 .Nav svg.bi-bag-heart-fill {
-margin-left:2em;
-margin-right: 1.9em;
+    margin-left: 2em;
+    margin-right: 1.9em;
 }
 
 .IconPanel {
@@ -227,11 +227,13 @@ margin-right: 1.9em;
 .LogoPhoto {
     width: 8%;
 }
-.Logo h1{
+
+.Logo h1 {
     margin-left: 1em;
     margin-right: 1em;
 }
-.BodyPanel{
+
+.BodyPanel {
     width: 100%;
     display: flex;
     align-items: stretch;
@@ -239,137 +241,179 @@ margin-right: 1.9em;
 }
 
 /* ////////////////////// */
-.LeftPanel{
-width: 20%;
-display: flex;
-flex-direction: column;
-border-right: 1px solid;
-border-image: linear-gradient(to bottom, rgb(228, 228, 228), rgb(238, 238, 238));
-border-image-slice: 1;
+.LeftPanel {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid;
+    border-image: linear-gradient(to bottom, rgb(228, 228, 228), rgb(238, 238, 238));
+    border-image-slice: 1;
 }
-.MainPanel{
+
+.MainPanel {
     width: 80%;
     display: flex;
     flex-direction: column;
 }
-body {font-family: Verdana, sans-serif;}
-.mySlides {display: none;}
-img {vertical-align: middle;}
-.slideshow-container {
-  max-width: 80%;
-  position: relative;
-  margin: auto;
-  margin-top: 1em;
-}
-.text {
-  color: #f2f2f2;
-  font-size: 15px;
-  padding: 8px 12px;
-  position: absolute;
-  bottom: 8px;
-  width: 100%;
-  text-align: center;
-  margin-bottom: 2em;
-}
-.numbertext {
-  color: #f2f2f2;
-  font-size: 12px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
-}
-.dot {
-  height: 15px;
-  width: 15px;
-  background-color: #bbb;
-  border-radius: 50%;
 
-  transition: background-color 0.6s ease;
+body {
+    font-family: Verdana, sans-serif;
 }
+
+.mySlides {
+    display: none;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.slideshow-container {
+    max-width: 80%;
+    position: relative;
+    margin: auto;
+    margin-top: 1em;
+}
+
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+.dot {
+    height: 15px;
+    width: 15px;
+    background-color: #bbb;
+    border-radius: 50%;
+
+    transition: background-color 0.6s ease;
+}
+
 .active {
-  background-color: #717171;
+    background-color: #717171;
 }
+
 .fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
 }
 
 @-webkit-keyframes fade {
-  from {opacity: .4} 
-  to {opacity: 1}
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
 }
 
 @keyframes fade {
-  from {opacity: .4} 
-  to {opacity: 1}
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
 }
+
 @media only screen and (max-width: 300px) {
-  .text {font-size: 11px}
+    .text {
+        font-size: 11px
+    }
 }
-.Buy{
+
+.Buy {
     margin-top: 1em;
     border-top: 1px solid;
-border-image: linear-gradient(to right, rgb(228, 228, 228), rgb(224, 224, 224));
-border-image-slice: 1;
-display: flex;
-flex-wrap: wrap;
-justify-content: space-around;
+    border-image: linear-gradient(to right, rgb(228, 228, 228), rgb(224, 224, 224));
+    border-image-slice: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
-.Tovar{
+
+.Tovar {
     margin-top: 0.5em;
     min-width: 16.5%;
     border-right: 1px solid rgb(228, 228, 228);
     border-bottom: 1px solid rgb(228, 228, 228);
     height: 14em;
 }
-.Products{
+
+.Products {
     margin: 1em;
     width: 100%;
     display: flex;
-flex-wrap: wrap;
+    flex-wrap: wrap;
 }
-.Ram{
+
+.Ram {
     width: 70%;
     height: 80%;
     margin-left: 2em;
-text-align: left;
-padding: 0.5em;
+    text-align: left;
+    padding: 0.5em;
 }
-.Ram img{
+
+.Ram img {
     height: 70%;
     width: 80%;
 }
-.Ram a{
+
+.Ram a {
     color: black;
     text-decoration: none;
 }
-.NameP{
+
+.NameP {
     font-size: 12px;
     word-break: break-all;
 }
-.Ram a:hover{
-    text-decoration:underline;
+
+.Ram a:hover {
+    text-decoration: underline;
 }
-.PriceP{
+
+.PriceP {
     color: red;
     font-size: 20px;
 }
-.Grivnya{
+
+.Grivnya {
     font-size: 16px;
 }
+
 .BlockP {
     height: 15%;
     display: flex;
-    align-items: center; 
-   margin: 0;
+    align-items: center;
+    margin: 0;
 }
-.AboutProducts{
+
+.AboutProducts {
     width: 100%;
     height: 100%;
 }
-.AboutDis{
+
+.AboutDis {
     margin-top: 4%;
     width: 80%;
     height: 100%;
@@ -378,20 +422,51 @@ padding: 0.5em;
     display: flex;
     flex: row;
 }
-.AboutImg{
+
+.AboutImg {
     width: 50%;
     height: 100%;
     border: 1px solid WHITE;
     display: flex;
-    align-items: center; 
-    justify-content: center; 
+    align-items: center;
+    justify-content: center;
 }
-.AboutName{
+
+.AboutName {
     width: 50%;
     height: 100%;
     border: 1px solid white;
 }
-    .AboutDis img{
+
+.AboutDis img {
     width: 20em;
     height: 20em;
-    }
+}
+
+.Like {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    width: 100%;
+    height: 5em;
+    border: 1px solid red;
+}
+
+.Like div {
+    width:12%;
+    height: 80%;
+    /* border: 1px solid red; */
+    margin: 1%;
+}
+
+.Like a{
+    width:100%;
+    color: #212529;
+}
+.Like a:hover{
+    color: rgb(172, 172, 172);
+}
+.Like svg{
+    width: 100%;
+    height: 100%;
+}

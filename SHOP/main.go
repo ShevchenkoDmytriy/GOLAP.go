@@ -184,7 +184,7 @@ func SearchProducts(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
-	rows, err := db.Query("SELECT * FROM Products WHERE product_name=?", name)
+	rows, err := db.Query("SELECT * FROM Products WHERE product_name LIKE ?", "%"+name+"%")
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -202,8 +202,9 @@ func SearchProducts(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		products = append(products, product)
-		t.ExecuteTemplate(w, "Search", products)
+
 	}
+	t.ExecuteTemplate(w, "Search", products)
 }
 func SearchPage(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("View/Search.html", "View/header.html", "View/footer.html")
