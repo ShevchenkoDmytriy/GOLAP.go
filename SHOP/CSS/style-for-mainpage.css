@@ -363,6 +363,8 @@ img {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row; /* Змінено на row для відображення в рядок */
+    justify-content: left;
 }
 
 .Ram {
@@ -400,6 +402,20 @@ img {
 .Grivnya {
     font-size: 16px;
 }
+
+.pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+    margin-bottom: 2em;
+}
+
+.pagination button {
+    margin: 0 0.5em;
+    padding: 0.5em;
+}
+
 
 .BlockP {
     height: 15%;
@@ -469,4 +485,7 @@ img {
 .Like svg{
     width: 100%;
     height: 100%;
+}
+svg.bi-heart{ 
+    width: 90%;
 }
