@@ -3,7 +3,21 @@
 <section>
     <div class="BodyPanel">
         <div class="LeftPanel">
-
+            <a href="">Алкогольні напої та продукти</a>
+            <a href="">Смартфони, ТВ і електроніка</a>
+            <a href="">Одяг, взуття та прикраси</a>
+            <a href="">Ноутбуки та комп’ютери</a>
+            <a href="">Сантехніка та ремонт</a>
+            <a href="">Товари для геймерів</a>
+            <a href="">Спорт і захоплення</a>
+            <a href="">Офіс, школа, книги</a>
+            <a href="">Дача, сад і город</a>
+            <a href="">Краса та здоров’я</a>
+            <a href="">Побутова техніка</a>
+            <a href="">Товари для дому</a>
+            <a href="">Побутова хімія</a>
+            <a href="">Дитячі товари</a>
+            <a href="">Зоотовари</a>
         </div>
         <div class="MainPanel">
             <div class="Carusel">
@@ -38,27 +52,31 @@
             </div>
             <div class="Buy">
                 <div class="Products">
+                    {{range .}}
                     <div class="Tovar">
                         <div class="Ram">
-                            <a href="">
+                            <a href="/Products/{{.ProductName}}">
                                 <img class="PhotoP" src="/Img/1-strawberry-png-images.png" alt="">
-                                <a href="">
-                                    <p class="NameP">Tovar</p>
+                                <a href="/Products/{{.ProductName}}">
+                                    <p class="NameP">{{.ProductName}}</p>
                                 </a>
                                 <div class="BlockP">
-                                    <p class="PriceP">635
+                                    <p class="PriceP">{{.Price}}
                                     <p class="Grivnya">₴</p>
                                     </p>
-
                                 </div>
-                                </p>
                             </a>
                         </div>
                     </div>
+                    {{end}}
                 </div>
-                
+                <div class="pagination">
+                    <button class="first"></button>
+                    <button class="prev"><<</button>
+                    <button class="next">>></button>
+                    <button class="last"></button>
+                </div>
             </div>
-
         </div>
 </section>
 

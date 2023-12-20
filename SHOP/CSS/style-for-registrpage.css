@@ -1,6 +1,6 @@
 body {font-family: Verdana, sans-serif;}
 .Header {
-    background-color: #212529;
+    background-color: #1b111d;
     width: 100%;
     height: 4em;
     margin: 0;
@@ -266,7 +266,7 @@ flex-wrap: wrap;
 }
 .InputBlock input{
     height: 1.6em;
-    margin-bottom: 10%;
+
 }
 .BlockRegistr{
     width: 70%;
@@ -275,14 +275,12 @@ flex-wrap: wrap;
 }
 .ButtonRegistr{
     width: 100%;
-    margin-top: 5%;
     text-align: center;
 }
 .ButtonRegistr button{
-    background-color: #212529;
+    background-color: #1b111d;
     color: white;
     width: 60%;
-    height:2em;
 }
 .loginForm label{
     margin-bottom: 1%;
@@ -301,4 +299,12 @@ flex-wrap: wrap;
 }
 .Remember{
     text-align: right;
+}
+.Error{
+    font-size: 60%;
+}
+.Error1 {
+    display: none;
+    color: red;
+    padding: 0;
 }

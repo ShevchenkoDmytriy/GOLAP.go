@@ -123,7 +123,7 @@ func CheckUser(w http.ResponseWriter, r *http.Request) {
 
 		posts = append(posts, post)
 		if email == post.email && password == post.password {
-			redirectURL = fmt.Sprintf("/%d", post.id_user)
+			redirectURL = fmt.Sprintf("/User/%d", post.id_user)
 			http.Redirect(w, r, redirectURL, http.StatusSeeOther)
 		} else {
 			http.Redirect(w, r, "/Loginpage", http.StatusSeeOther)
@@ -135,7 +135,29 @@ func MainpageWithRegi(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 	}
-	t.ExecuteTemplate(w, "MainpageWithRegi", nil)
+	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/Shop.go")
+	if err != nil {
+		panic(err.Error())
+	}
+
+	defer db.Close()
+
+	send, err := db.Query("SELECT * FROM `Products`")
+	if err != nil {
+		panic(err.Error())
+	}
+	products = []Products{}
+
+	for send.Next() {
+		var prod Products
+		err = send.Scan(&prod.ProductId, &prod.ProductName, &prod.Price, &prod.Description)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		products = append(products, prod)
+	}
+	t.ExecuteTemplate(w, "MainpageWithRegi", products)
 }
 func About(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("View/About.html", "View/header.html", "View/footer.html")
@@ -254,9 +276,9 @@ func HandlePage() {
 	rtr.HandleFunc("/", MainPage).Methods("GET")
 	rtr.HandleFunc("/SaveUser", SaveUser).Methods("POST")
 	rtr.HandleFunc("/CheckUser", CheckUser).Methods("POST")
-	rtr.HandleFunc("/{{.Id}}", MainpageWithRegi).Methods("GET")
+	rtr.HandleFunc("/User/{{.Id}}", MainpageWithRegi).Methods("GET")
 	rtr.HandleFunc("/Products/{product_name}", About).Methods("GET")
-	rtr.HandleFunc("/SearchPage", SearchProducts).Methods("POST")
+	rtr.HandleFunc("/SearchPage", SearchProducts).Methods("POST", "GET")
 	rtr.HandleFunc("/Search", SearchPage).Methods("GET")
 
 	// rtr.HandleFunc("/Products/{{.Id}}", About).Methods("GET")

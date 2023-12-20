@@ -153,7 +153,7 @@ footer.top .socials>a {
 }
 
 .Header {
-    background-color: #212529;
+    background-color: #1b111d;
     width: 100%;
     height: 4em;
     margin: 0;
@@ -404,11 +404,13 @@ img {
 }
 
 .pagination {
+    border-top: 1px solid rgb(228, 228, 228);
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 1em;
-    margin-bottom: 2em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
 }
 
 .pagination button {
@@ -455,8 +457,8 @@ img {
 }
 
 .AboutDis img {
-    width: 20em;
-    height: 20em;
+    width: 50%;
+    height: 50%;
 }
 
 .Like {
@@ -465,27 +467,45 @@ img {
     justify-content: left;
     width: 100%;
     height: 5em;
-    border: 1px solid red;
+    border-top: 1px solid rgb(228, 228, 228);
+    border-left: 1px solid rgb(228, 228, 228);
 }
 
 .Like div {
     width:12%;
     height: 80%;
     /* border: 1px solid red; */
-    margin: 1%;
+margin: 1%;
 }
 
 .Like a{
     width:100%;
     color: #212529;
 }
-.Like a:hover{
-    color: rgb(172, 172, 172);
+.Like svg:hover{
+    scale:1.1;
 }
 .Like svg{
     width: 100%;
     height: 100%;
 }
-svg.bi-heart{ 
-    width: 90%;
+.LeftPanel a{
+    margin-left: 4%;
+    margin-top: 2%;
+    text-decoration: none;
+    color: rgb(4, 0, 255);
+
+}
+.LeftPanel a:hover{
+    text-decoration: underline;
+    color: rgb(176, 175, 255);
+}
+.Icon svg:hover{
+scale: 1.2;
+}
+.Like a{
+    color:#1b111d;
+}
+.Like div.AboutIcon{
+    margin-left: 10%;
 }
