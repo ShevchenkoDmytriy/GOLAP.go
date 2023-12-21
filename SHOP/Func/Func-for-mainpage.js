@@ -62,19 +62,7 @@ $(document).ready(function () {
     }
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector('.loginForm').addEventListener('submit', function (event) {
-        var email = document.getElementById('email').value.trim(); // Забираємо зайві пробіли
-        var password = document.getElementById('password').value.trim(); // Забираємо зайві пробіли
-        var userType = document.querySelector('input[name="userType"]:checked');
-        var errorMessage = document.querySelector('.Error1'); // Отримуємо елемент p для відображення помилки
 
-        // Виконуємо перевірку наявності значень
-        if (!email || !password || !userType) {
-            errorMessage.style.visibility = 'visible'; // Показуємо повідомлення про помилку
-            event.preventDefault(); // Зупиняємо відправку форми
-        } else {
-            errorMessage.style.visibility = 'hidden'; // Ховаємо повідомлення про помилку, якщо значення введено коректно
-        }
-    });
-});
+
+
+

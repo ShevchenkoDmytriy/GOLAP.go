@@ -22,6 +22,9 @@ type Products struct {
 	Price       float64
 	Description string
 }
+type PageVariables struct {
+	Check bool
+}
 
 var posts = []Users{}
 var redirectURL string
@@ -77,27 +80,36 @@ func SaveUser(w http.ResponseWriter, r *http.Request) {
 	email := r.FormValue("email")
 	password := r.FormValue("password")
 	userType := r.FormValue("userType")
-
-	if email == "" || password == "" || (userType != "user" && userType != "solder") {
+	check := false
+	t, _ := template.ParseFiles("View/Registrpage.html", "View/header2.html", "View/footer2.html")
+	if email == "" || password == "" || (userType != "user" && userType != "seller") {
 		fmt.Fprintf(w, "Try again")
 	} else {
 		db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/Shop.go")
 		if err != nil {
 			panic(err.Error)
 		}
-
+		var exists bool
+		err = db.QueryRow("SELECT EXISTS(SELECT 1 FROM Users WHERE email = ?)", email).Scan(&exists)
+		if err != nil {
+			panic(err.Error)
+		}
+		if exists {
+			check = true
+			t.ExecuteTemplate(w, "Registrpage", PageVariables{Check: check})
+			return
+		}
 		defer db.Close()
-
 		insert, err := db.Query(fmt.Sprintf("INSERT INTO `Users`(`email`,`password`,`type_user`) VALUES('%s','%s','%s')", email, password, userType))
 		if err != nil {
 			panic(err.Error)
 		}
-
 		defer insert.Close()
-
+		// Зміни: Після успішної реєстрації перенаправте на сторінку логіну
 		http.Redirect(w, r, "/Loginpage", http.StatusSeeOther)
 	}
 }
+
 func CheckUser(w http.ResponseWriter, r *http.Request) {
 	email := r.FormValue("email")
 	password := r.FormValue("password")
@@ -271,16 +283,15 @@ func HandlePage() {
 	http.Handle("/Func/", http.StripPrefix("/Func/", http.FileServer(http.Dir("./Func/"))))
 	rtr := mux.NewRouter()
 
-	rtr.HandleFunc("/Registration", Registpage)
+	rtr.HandleFunc("/Registration", Registpage).Methods("GET")
 	rtr.HandleFunc("/Loginpage", Loginpage)
 	rtr.HandleFunc("/", MainPage).Methods("GET")
-	rtr.HandleFunc("/SaveUser", SaveUser).Methods("POST")
+	rtr.HandleFunc("/SaveUser", SaveUser).Methods("POST", "GET")
 	rtr.HandleFunc("/CheckUser", CheckUser).Methods("POST")
-	rtr.HandleFunc("/User/{{.Id}}", MainpageWithRegi).Methods("GET")
+	rtr.HandleFunc("/User/{Id:[0-9]+}", MainpageWithRegi).Methods("GET")
 	rtr.HandleFunc("/Products/{product_name}", About).Methods("GET")
 	rtr.HandleFunc("/SearchPage", SearchProducts).Methods("POST", "GET")
 	rtr.HandleFunc("/Search", SearchPage).Methods("GET")
-
 	// rtr.HandleFunc("/Products/{{.Id}}", About).Methods("GET")
 	// rtr.HandleFunc("/MainpageWithRegi/{Id:[0-9]+}", MainpageWithRegi).Methods("GET")
 	// rtr.HandleFunc("/create", create).Methods("GET")

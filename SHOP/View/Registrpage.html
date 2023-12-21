@@ -8,7 +8,8 @@
                     <div class="InputBlock">
                         <label for="email">Email:</label>
                         <input placeholder="Enter ..." type="email" id="email" name="email" required>
-                        <p class="Error" style="color: red; padding: 0; visibility: hidden;">Цей email вже зареєстрований</p>
+                        <p class="Error" style="color: red; padding: 0;">{{if .Check}}Цей email вже
+                            зареєстрований{{end}}</p>
                         <label for="password">Password:</label>
                         <input placeholder="Enter ..." type="password" id="password" name="password" required>
                     </div>
@@ -23,14 +24,14 @@
                     </div>
                     <p class="Error1" style="color: red; padding: 0; ">Заповніть всі поля</p>
                     <div class="ButtonRegistr">
-                        <button >Log up</button>
+                        <button>Log up</button>
                     </div>
                 </form>
                 <div class="LogIn">
                     <a href="/Loginpage">log in</a>
                 </div>
             </div>
-            
+
         </div>
         <div class="Animation">
             <div class="BlockRegistr">
