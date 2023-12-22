@@ -32,7 +32,7 @@ var products = []Products{}
 var about = Products{}
 
 func MainPage(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("View/Mainpage.html", "View/header.html", "View/footer.html")
+	t, err := template.ParseFiles("View/Mainpage.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 	}
@@ -63,14 +63,14 @@ func MainPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func Registpage(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("View/Registrpage.html", "View/header2.html", "View/footer2.html")
+	t, err := template.ParseFiles("View/Registrpage.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 	}
 	t.ExecuteTemplate(w, "Registrpage", nil)
 }
 func Loginpage(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("View/Loginpage.html", "View/header2.html", "View/footer2.html")
+	t, err := template.ParseFiles("View/Loginpage.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 	}
@@ -81,7 +81,7 @@ func SaveUser(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 	userType := r.FormValue("userType")
 	check := false
-	t, _ := template.ParseFiles("View/Registrpage.html", "View/header2.html", "View/footer2.html")
+	t, _ := template.ParseFiles("View/Registrpage.html")
 	if email == "" || password == "" || (userType != "user" && userType != "seller") {
 		fmt.Fprintf(w, "Try again")
 	} else {
@@ -115,14 +115,15 @@ func CheckUser(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/Shop.go")
 	if err != nil {
-		panic(err.Error)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
-
 	defer db.Close()
 
-	send, err := db.Query("SELECT *FROM `Users`")
+	send, err := db.Query("SELECT * FROM `Users`")
 	if err != nil {
-		panic(err.Error)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 	posts = []Users{}
 
@@ -130,20 +131,24 @@ func CheckUser(w http.ResponseWriter, r *http.Request) {
 		var post Users
 		err = send.Scan(&post.id_user, &post.email, &post.password, &post.typeUser)
 		if err != nil {
-			panic(err.Error)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 
 		posts = append(posts, post)
 		if email == post.email && password == post.password {
 			redirectURL = fmt.Sprintf("/User/%d", post.id_user)
 			http.Redirect(w, r, redirectURL, http.StatusSeeOther)
-		} else {
-			http.Redirect(w, r, "/Loginpage", http.StatusSeeOther)
+			return // Exit the handler after redirect
 		}
 	}
+
+	// If no user is found, redirect to login
+	http.Redirect(w, r, "/Loginpage", http.StatusSeeOther)
 }
+
 func MainpageWithRegi(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("View/MainpageWithRegi.html", "View/header3.html", "View/footer3.html")
+	t, err := template.ParseFiles("View/MainpageWithRegi.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 	}
@@ -172,7 +177,7 @@ func MainpageWithRegi(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "MainpageWithRegi", products)
 }
 func About(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("View/About.html", "View/header.html", "View/footer.html")
+	t, err := template.ParseFiles("View/About.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -205,7 +210,7 @@ func About(w http.ResponseWriter, r *http.Request) {
 }
 func SearchProducts(w http.ResponseWriter, r *http.Request) {
 	name := r.FormValue("productsName")
-	t, err := template.ParseFiles("View/Search.html", "View/header.html", "View/footer.html")
+	t, err := template.ParseFiles("View/Search.html")
 	if name == "" {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
@@ -241,7 +246,7 @@ func SearchProducts(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "Search", products)
 }
 func SearchPage(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("View/Search.html", "View/header.html", "View/footer.html")
+	t, err := template.ParseFiles("View/Search.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 	}

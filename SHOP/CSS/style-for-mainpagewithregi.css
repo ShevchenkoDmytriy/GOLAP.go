@@ -406,6 +406,10 @@ transition: background-color 0.6s ease;
     color: rgb(176, 175, 255);
 }
 /* Змінено селектор для випадаючого списку */
+.ProfileIcon:hover .ProfileDropdown {
+    display: block;
+}
+
 .ProfileDropdown {
     display: none;
     position: absolute;
@@ -431,13 +435,17 @@ transition: background-color 0.6s ease;
     display: block;
 }
 
-/* Змінено селектор для випадаючого списку */
 .ProfileDropdown.show {
     display: block;
 }
-.ProfileDropdown li:hover{
+
+.ProfileDropdown  li:hover {
     background-color: #1b111d;
+    color: white;   
 }
-.Icon svg:hover{
-    scale: 1.2;
-    }
+.ProfileDropdown  a:hover {
+    color: white;   
+}   
+.Icon:hover svg {
+    transform: scale(1.2);
+}

@@ -301,11 +301,22 @@ flex-wrap: wrap;
     text-align: right;
 }
 .Error{
-    font-size: 60%;
-}
-.Error1 {
-    display: none;
+    visibility: hidden;
     color: red;
     padding: 0;
     font-size: 60%;
 }
+.Error.visible {
+    visibility: visible;
+  }
+.Error1 {
+    visibility: hidden;
+    color: red;
+    padding: 0;
+    font-size: 60%;
+  }
+  
+  .Error1.visible {
+    visibility: visible;
+  }
+  
