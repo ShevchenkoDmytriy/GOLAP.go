@@ -444,7 +444,7 @@ img {
 .AboutImg {
     width: 50%;
     height: 100%;
-    border: 1px solid WHITE;
+    border: 1px solid rgb(228, 228, 228);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -453,7 +453,7 @@ img {
 .AboutName {
     width: 50%;
     height: 100%;
-    border: 1px solid white;
+    border: 1px solid rgb(228, 228, 228);
 }
 
 .AboutDis img {
@@ -490,8 +490,9 @@ margin: 1%;
     height: 100%;
 }
 .LeftPanel a{
-    margin-left: 4%;
-    margin-top: 2%;
+    font-size: 80%;
+    margin-left: 15%;
+    margin-top: 5%;
     text-decoration: none;
     color: rgb(4, 0, 255);
 
@@ -508,4 +509,21 @@ scale: 1.2;
 }
 .Like div.AboutIcon{
     margin-left: 10%;
+}
+.Сharact{
+    margin-top: 4%;
+    width: 80%;
+    height: 100%;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    flex: row;
+}
+.CharactProd{
+    width: 50%;
+    height: 100%;
+    border: 1px solid rgb(228, 228, 228)   ;
+}
+.CharactProd p{
+    margin:6%;
 }

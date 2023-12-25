@@ -105,7 +105,6 @@ func SaveUser(w http.ResponseWriter, r *http.Request) {
 			panic(err.Error)
 		}
 		defer insert.Close()
-		// Зміни: Після успішної реєстрації перенаправте на сторінку логіну
 		http.Redirect(w, r, "/Loginpage", http.StatusSeeOther)
 	}
 }
@@ -139,11 +138,9 @@ func CheckUser(w http.ResponseWriter, r *http.Request) {
 		if email == post.email && password == post.password {
 			redirectURL = fmt.Sprintf("/User/%d", post.id_user)
 			http.Redirect(w, r, redirectURL, http.StatusSeeOther)
-			return // Exit the handler after redirect
+			return
 		}
 	}
-
-	// If no user is found, redirect to login
 	http.Redirect(w, r, "/Loginpage", http.StatusSeeOther)
 }
 
@@ -290,7 +287,7 @@ func HandlePage() {
 
 	rtr.HandleFunc("/Registration", Registpage).Methods("GET")
 	rtr.HandleFunc("/Loginpage", Loginpage)
-	rtr.HandleFunc("/", MainPage).Methods("GET")
+	rtr.HandleFunc("/", MainPage)
 	rtr.HandleFunc("/SaveUser", SaveUser).Methods("POST", "GET")
 	rtr.HandleFunc("/CheckUser", CheckUser).Methods("POST")
 	rtr.HandleFunc("/User/{Id:[0-9]+}", MainpageWithRegi).Methods("GET")
