@@ -249,6 +249,13 @@ func SearchPage(w http.ResponseWriter, r *http.Request) {
 	}
 	t.ExecuteTemplate(w, "Search", nil)
 }
+func Basketpage(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("View/Basket.html")
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+	}
+	t.ExecuteTemplate(w, "Basket", nil)
+}
 
 // func AboutPost(w http.ResponseWriter, r *http.Request) {
 // 	t, err := template.ParseFiles("template/show.html", "template/header.html", "template/footer.html")
