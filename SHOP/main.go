@@ -8,6 +8,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
+	"github.com/gorilla/sessions"
 )
 
 type Users struct {
@@ -30,8 +31,19 @@ var posts = []Users{}
 var redirectURL string
 var products = []Products{}
 var about = Products{}
+var store = sessions.NewCookieStore([]byte("super-secret"))
 
 func MainPage(w http.ResponseWriter, r *http.Request) {
+	session, err := store.Get(r, "session-name")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if userID, ok := session.Values["user_id"]; ok {
+		redirectURL := fmt.Sprintf("/User/%d", userID)
+		http.Redirect(w, r, redirectURL, http.StatusSeeOther)
+		return
+	}
 	t, err := template.ParseFiles("View/Mainpage.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
@@ -61,8 +73,17 @@ func MainPage(w http.ResponseWriter, r *http.Request) {
 	}
 	t.ExecuteTemplate(w, "Mainpage", products)
 }
-
 func Registpage(w http.ResponseWriter, r *http.Request) {
+	session, err := store.Get(r, "session-name")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if userID, ok := session.Values["user_id"]; ok {
+		redirectURL := fmt.Sprintf("/User/%d", userID)
+		http.Redirect(w, r, redirectURL, http.StatusSeeOther)
+		return
+	}
 	t, err := template.ParseFiles("View/Registrpage.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
@@ -70,12 +91,24 @@ func Registpage(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "Registrpage", nil)
 }
 func Loginpage(w http.ResponseWriter, r *http.Request) {
+	session, err := store.Get(r, "session-name")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if userID, ok := session.Values["user_id"]; ok {
+
+		redirectURL := fmt.Sprintf("/User/%d", userID)
+		http.Redirect(w, r, redirectURL, http.StatusSeeOther)
+		return
+	}
 	t, err := template.ParseFiles("View/Loginpage.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 	}
 	t.ExecuteTemplate(w, "Loginpage", nil)
 }
+
 func SaveUser(w http.ResponseWriter, r *http.Request) {
 	email := r.FormValue("email")
 	password := r.FormValue("password")
@@ -126,6 +159,8 @@ func CheckUser(w http.ResponseWriter, r *http.Request) {
 	}
 	posts = []Users{}
 
+	session, _ := store.Get(r, "session-name")
+
 	for send.Next() {
 		var post Users
 		err = send.Scan(&post.id_user, &post.email, &post.password, &post.typeUser)
@@ -134,8 +169,10 @@ func CheckUser(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		posts = append(posts, post)
 		if email == post.email && password == post.password {
+			session.Values["user_id"] = post.id_user
+			session.Save(r, w)
+
 			redirectURL = fmt.Sprintf("/User/%d", post.id_user)
 			http.Redirect(w, r, redirectURL, http.StatusSeeOther)
 			return
@@ -145,6 +182,15 @@ func CheckUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func MainpageWithRegi(w http.ResponseWriter, r *http.Request) {
+	session, err := store.Get(r, "session-name")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if _, ok := session.Values["user_id"]; !ok {
+		http.Redirect(w, r, "/Loginpage", http.StatusSeeOther)
+		return
+	}
 	t, err := template.ParseFiles("View/MainpageWithRegi.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
@@ -174,6 +220,16 @@ func MainpageWithRegi(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "MainpageWithRegi", products)
 }
 func About(w http.ResponseWriter, r *http.Request) {
+	session, err := store.Get(r, "session-name")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if userID, ok := session.Values["user_id"]; ok {
+		redirectURL := fmt.Sprintf("/User/%d", userID)
+		http.Redirect(w, r, redirectURL, http.StatusSeeOther)
+		return
+	}
 	t, err := template.ParseFiles("View/About.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -206,6 +262,7 @@ func About(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "About", about)
 }
 func SearchProducts(w http.ResponseWriter, r *http.Request) {
+
 	name := r.FormValue("productsName")
 	t, err := template.ParseFiles("View/Search.html")
 	if name == "" {
@@ -243,6 +300,16 @@ func SearchProducts(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "Search", products)
 }
 func SearchPage(w http.ResponseWriter, r *http.Request) {
+	session, err := store.Get(r, "session-name")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if userID, ok := session.Values["user_id"]; ok {
+		redirectURL := fmt.Sprintf("/User/%d", userID)
+		http.Redirect(w, r, redirectURL, http.StatusSeeOther)
+		return
+	}
 	t, err := template.ParseFiles("View/Search.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
@@ -255,6 +322,16 @@ func Basketpage(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 	}
 	t.ExecuteTemplate(w, "Basket", nil)
+}
+func Logout(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "session-name")
+	session.Options.MaxAge = -1
+	err := session.Save(r, w)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
 // func AboutPost(w http.ResponseWriter, r *http.Request) {
@@ -301,6 +378,7 @@ func HandlePage() {
 	rtr.HandleFunc("/Products/{product_name}", About).Methods("GET")
 	rtr.HandleFunc("/SearchPage", SearchProducts).Methods("POST", "GET")
 	rtr.HandleFunc("/Search", SearchPage).Methods("GET")
+	rtr.HandleFunc("/Logout", Logout).Methods("GET")
 	// rtr.HandleFunc("/Products/{{.Id}}", About).Methods("GET")
 	// rtr.HandleFunc("/MainpageWithRegi/{Id:[0-9]+}", MainpageWithRegi).Methods("GET")
 	// rtr.HandleFunc("/create", create).Methods("GET")
